@@ -1,0 +1,38 @@
+<h1>Welcome <%= current_user.email.split("@")[0]%></h1>
+
+<div>
+<div style =" display: flex; justify-content: end;">
+    <%= link_to "Log out ", destroy_user_session_path, method: :delete, class:"btn btn-outline-secondary" %>
+</div>
+    <table class=" table table-striped d-block" style="overflow:scroll; max-height:50vh">
+        <thead>
+            <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Tags</th>
+            <th scope="col">File Name</th>
+            <th scope="col "colspan='3'>Actions</th>
+            </tr>
+        </thead>
+        <tbody >
+            <%@records.each do |r|%>
+                <tr>
+                    <th scope="row"><%= r.id%></th>
+                    <td><%= r.title%> </td>
+                    <td><%=r.description %> </td>
+                    <td>
+                        <% r.tags&.split(",")&.each do |tag|%>
+                            <%=link_to tag, user_file_records_path(current_user ,tags: tag),class:'btn btn-outline-info btn-sm'%> 
+                        <% end %>
+                    </td>
+                    <td><%=r.file.blob.filename if r.file.attached? %> </td>
+                    <td><%= link_to "Show", user_file_record_path(current_user , r),class: "btn btn-outline-success my-2 my-sm-0" %> </td>
+                    <td><%= link_to "Edit", edit_user_file_record_path(current_user , r),class: "btn btn-outline-success my-2 my-sm-0" %> </td>
+                    <td><%= link_to "Delete", user_file_record_path(current_user , r),class: "btn btn-outline-danger my-2 my-sm-0" ,method: :delete %> </td>
+                </tr>  
+            <% end %>  
+        </tbody>
+    </table>
+    <div><%=link_to "Create new file record " , new_user_file_record_path(current_user), class: "btn btn-outline-primary" %></div>   
+<div>

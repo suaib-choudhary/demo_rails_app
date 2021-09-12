@@ -1,0 +1,37 @@
+<table class=" table table-striped">
+    <thead>
+        <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Preview</th>
+        <th scope="col">File Name</th>
+        <th scope="col">Download</th>
+        <th scope="col">Share</th>
+        <th scope="col "colspan='2'>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr>
+                <th scope="row"><%= @record.id%></th>
+                <td><%= @record.title%> </td>
+                <td><%=@record.description %> </td>
+                <%if @record.file.attached?%>
+                    <%if @record.file.representable? %>
+                        <td>
+                            <%= link_to(@record.file.variant(resize_to_limit: [500,500])) do %> 
+                                <%=image_tag(@record.file.variant(resize_to_limit: [100,100]))%>
+                            <%end%>
+                        </td>
+                    <% end %>
+                    <td><%=@record.file.blob.filename if @record.file.attached? %> </td>
+                    <td> <%= link_to " Download" ,rails_blob_path(@record.file, disposition: 'attachment'),class: " fa fa-download btn btn-sm btn-outline-primary" %>
+                       
+                     </td>
+                    <td> <input type="text" disabled value="<%= get_share_url(@record.file)%>" /> </td>
+                <% end %>
+                <td><%= link_to "Edit", edit_user_file_record_path(current_user,@record),class:"btn btn-outline-success my-2 my-sm-0" %> </td>
+                <td><%= link_to "Delete", user_file_record_path(current_user , @record),method: :delete,class: "btn btn-outline-danger my-2 my-sm-0" %> </td>
+            </tr>
+    </tbody>
+</table>
