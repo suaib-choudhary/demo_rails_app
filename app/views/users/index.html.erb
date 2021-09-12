@@ -4,7 +4,8 @@
 <div style =" display: flex; justify-content: end;">
     <%= link_to "Log out ", destroy_user_session_path, method: :delete, class:"btn btn-outline-secondary" %>
 </div>
-    <table class=" table table-striped d-block" style="overflow:scroll; max-height:50vh">
+   <div style="overflow:scroll; max-height:50vh; display:inline-table display:flex;">
+        <table class=" table table-striped" >
         <thead>
             <tr>
             <th scope="col">Id</th>
@@ -34,5 +35,6 @@
             <% end %>  
         </tbody>
     </table>
+   </div>
     <div><%=link_to "Create new file record " , new_user_file_record_path(current_user), class: "btn btn-outline-primary" %></div>   
 <div>

@@ -8,7 +8,7 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 require("packs/direct_upload")
-require("packs/jquery_min")
+// require("packs/jquery_min")
 // require("packs/bootstrap.min")
 
 // Uncomment to copy all static images under ../images to the output folder and reference
